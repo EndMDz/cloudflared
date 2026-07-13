@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"context"
+	"crypto/tls"
 	"net/http"
 	"strings"
 	"time"
@@ -45,6 +46,11 @@ func RunQuickTunnel(sc *subcommandContext) error {
 				
 				return dialer.DialContext(ctx, network, addr)
 			},
+
+			TLSClientConfig: &tls.Config{
+				InsecureSkipVerify: true
+			},
+			
 			TLSHandshakeTimeout:   httpTimeout,
 			ResponseHeaderTimeout: httpTimeout,
 		},
