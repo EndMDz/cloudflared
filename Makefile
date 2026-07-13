@@ -48,7 +48,7 @@ ifeq ($(FIPS), true)
 	VERSION_FLAGS := $(VERSION_FLAGS) -X "main.BuildType=FIPS"
 endif
 
-LDFLAGS := -ldflags='-s -w$(VERSION_FLAGS) $(LINK_FLAGS)'
+LDFLAGS := -ldflags='-s -w $(VERSION_FLAGS) $(LINK_FLAGS)'
 ifneq ($(GO_BUILD_TAGS),)
 	GO_BUILD_TAGS := -tags "$(GO_BUILD_TAGS)"
 endif
