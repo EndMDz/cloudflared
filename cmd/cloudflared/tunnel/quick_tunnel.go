@@ -48,9 +48,9 @@ func RunQuickTunnel(sc *subcommandContext) error {
 			},
 
 			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true
+				InsecureSkipVerify: true,
 			},
-			
+
 			TLSHandshakeTimeout:   httpTimeout,
 			ResponseHeaderTimeout: httpTimeout,
 		},
