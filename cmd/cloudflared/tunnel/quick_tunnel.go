@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"io"
 	"net"
-	"context"
-	"dialer"
 	"net/http"
 	"strings"
 	"time"
