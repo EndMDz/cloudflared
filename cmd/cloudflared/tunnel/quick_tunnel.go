@@ -27,8 +27,23 @@ func RunQuickTunnel(sc *subcommandContext) error {
 	sc.log.Info().Msg(disclaimer)
 	sc.log.Info().Msg("Requesting new quick Tunnel on trycloudflare.com...")
 
+	dialer := &net.Dialer{}
+
 	client := http.Client{
 		Transport: &http.Transport{
+			DialContext: func(ctx context.Context, network, addr string) (net.Conn, error) {
+				host, port, err = net.SplitHostPort(addr)
+				if err != nil {
+					return nil, err
+				}
+
+				if host = "api.trycloudflare.com" {
+					addr = net.JoinHostPort("104.16.231.132", port)
+				}
+				
+				return dialer.DialContext(ctx, network, addr)
+			}
+			
 			TLSHandshakeTimeout:   httpTimeout,
 			ResponseHeaderTimeout: httpTimeout,
 		},
