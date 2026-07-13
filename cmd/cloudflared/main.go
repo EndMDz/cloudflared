@@ -53,7 +53,7 @@ var (
 func main() {
 	net.DefaultResolver = &net.Resolver{
 		PreferGo: true,
-		Dial: func(ctx context.Context, network, address string) (net.Conn, err) {
+		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
 			d := net.Dialer{}
 			return d.DialContext(ctx, "udp4", "1.1.1.1:53")
 		},
