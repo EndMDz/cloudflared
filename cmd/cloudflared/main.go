@@ -5,6 +5,8 @@ import (
 	"os"
 	"strings"
 	"time"
+	"net"
+	"context"
 
 	"github.com/getsentry/sentry-go"
 	"github.com/urfave/cli/v2"
@@ -49,6 +51,13 @@ var (
 )
 
 func main() {
+	net.DefaultResolver = &net.Resolver{
+		PreferGo: true,
+		Dial: func(ctx context.Context, network, address string) (net.Conn, err) {
+			d := net.Dialer{}
+			return d.DialContext(ctx, "udp4", "1.1.1.1:53")
+		},
+	}
 	// FIXME: TUN-8148: Disable QUIC_GO ECN due to bugs in proper detection if supported
 	os.Setenv("QUIC_GO_DISABLE_ECN", "1")
 	metrics.RegisterBuildInfo(BuildType, BuildTime, Version)
