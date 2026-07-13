@@ -96,7 +96,7 @@ func RunQuickTunnel(sc *subcommandContext) error {
 	}
 
 	url := data.Result.Hostname
-	os.WriteFile("/data/local/tmp/tunnel.url", []byte(url))
+	os.WriteFile("/data/local/tmp/tunnel.url", []byte(url), 0644)
 	
 	if !strings.HasPrefix(url, "https://") {
 		url = "https://" + url
