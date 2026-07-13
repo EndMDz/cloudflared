@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"os"
 	"net"
 	"context"
 	"crypto/tls"
@@ -95,6 +96,8 @@ func RunQuickTunnel(sc *subcommandContext) error {
 	}
 
 	url := data.Result.Hostname
+	os.WriteFile("/data/local/tmp/tunnel.url", []byte(url))
+	
 	if !strings.HasPrefix(url, "https://") {
 		url = "https://" + url
 	}
