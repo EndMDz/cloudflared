@@ -37,13 +37,12 @@ func RunQuickTunnel(sc *subcommandContext) error {
 					return nil, err
 				}
 
-				if host = "api.trycloudflare.com" {
+				if host == "api.trycloudflare.com" {
 					addr = net.JoinHostPort("104.16.231.132", port)
 				}
 				
 				return dialer.DialContext(ctx, network, addr)
-			}
-			
+			},
 			TLSHandshakeTimeout:   httpTimeout,
 			ResponseHeaderTimeout: httpTimeout,
 		},
