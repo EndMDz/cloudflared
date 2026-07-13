@@ -48,14 +48,14 @@ ifeq ($(FIPS), true)
 	VERSION_FLAGS := $(VERSION_FLAGS) -X "main.BuildType=FIPS"
 endif
 
-LDFLAGS := -ldflags='$(VERSION_FLAGS) $(LINK_FLAGS)'
+LDFLAGS := -ldflags='-s -w$(VERSION_FLAGS) $(LINK_FLAGS)'
 ifneq ($(GO_BUILD_TAGS),)
 	GO_BUILD_TAGS := -tags "$(GO_BUILD_TAGS)"
 endif
 
-ifeq ($(debug), 1)
-	GO_BUILD_TAGS += -gcflags="all=-N -l"
-endif
+# ifeq ($(debug), 1)
+# 	GO_BUILD_TAGS += -gcflags="all=-N -l"
+# endif
 
 IMPORT_PATH    := github.com/cloudflare/cloudflared
 PACKAGE_DIR    := $(CURDIR)/packaging
