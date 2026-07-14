@@ -57,14 +57,14 @@ func main() {
 		Dial: func(ctx context.Context, network, address string) (net.Conn, error) {
 			d := net.Dialer{}
 
-			if (network == "udp6", len(address) > 0 && address[0] == '[') {
+			if (network == "udp6" || len(address) > 0 && address[0] == '[') {
 				return d.DialContext(ctx, "udp6", "[2606:4700:4700::1111]:53")
 			}
 
 			return d.DialContext(ctx, "udp", "1.1.1.1:53")
 		},
 	}
-	
+
 	// FIXME: TUN-8148: Disable QUIC_GO ECN due to bugs in proper detection if supported
 	os.Setenv("QUIC_GO_DISABLE_ECN", "1")
 	metrics.RegisterBuildInfo(BuildType, BuildTime, Version)
