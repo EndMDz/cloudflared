@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"io"
 	"os"
-	"net"
-	"context"
 	"crypto/tls"
 	"net/http"
 	"strings"
@@ -30,8 +28,6 @@ const disclaimer = "Thank you for trying Cloudflare Tunnel. Doing so, without a 
 func RunQuickTunnel(sc *subcommandContext) error {
 	sc.log.Info().Msg(disclaimer)
 	sc.log.Info().Msg("Requesting new quick Tunnel on trycloudflare.com...")
-
-	dialer := &net.Dialer{}
 
 	client := http.Client{
 		Transport: &http.Transport{
